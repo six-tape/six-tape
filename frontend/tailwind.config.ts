@@ -6,7 +6,8 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-    important: '#__next',
+    important: '#_next',
+    prefix: 'tw-',
   theme: {
     extend: {
       colors: {
@@ -17,6 +18,6 @@ export default {
   },
   plugins: [],
     corePlugins: {
-      preflight: false,
+      preflight: false
     }
 } satisfies Config;
