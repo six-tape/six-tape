@@ -20,3 +20,6 @@ We follow GitFlow, that means:
 * Next.js with TypeScript
 * TailwindCSS for styles
 * MaterialUI for components
+
+### Backend
+* KTor with Kotlin
