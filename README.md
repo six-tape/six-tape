@@ -17,9 +17,9 @@ We follow GitFlow, that means:
 
 ### Frontend
 
-* Next.js with TypeScript
+* Astro with React
 * TailwindCSS for styles
-* MaterialUI for components
+* MaterialUI as a React component library
 
 ### Backend
 * KTor with Kotlin
