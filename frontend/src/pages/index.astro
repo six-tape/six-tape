@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import MovieListItem from '@components/MovieListItem.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const movie_list = [
+    {
+        title: "Arrival",
+        summary: "Muy buena película.",
+        user: "Vicente"
+    },{
+        title: "Spaceman",
+        summary: "Película no mala de Adam Sandler.",
+        user: "Vicente"
+    }
+]
 ---
 
 <Layout>
-	<Welcome />
+	<h1>Películas por ver:</h1>
+	<ul class="px-4 flex flex-col gap-4">
+        {movie_list.map((movie) => (
+		    <MovieListItem title={movie.title}
+                           summary={movie.summary}
+                           user={movie.user}
+            />
+        ))}
+	</ul>
 </Layout>
