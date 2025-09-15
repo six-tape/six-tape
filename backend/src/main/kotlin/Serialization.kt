@@ -1,7 +1,7 @@
 package cl.sixtape
 
-import cl.sixtape.model.Movie
-import cl.sixtape.model.MovieRepository
+import cl.sixtape.model.movie.Movie
+import cl.sixtape.model.movie.MovieRepository
 import io.ktor.http.*
 import io.ktor.serialization.JsonConvertException
 import io.ktor.serialization.kotlinx.json.*

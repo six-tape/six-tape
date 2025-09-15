@@ -1,4 +1,4 @@
-package cl.sixtape.model
+package cl.sixtape.model.movie
 
 interface MovieRepository {
     suspend fun allMovies(): List<Movie>

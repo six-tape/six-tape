@@ -1,13 +1,10 @@
 package cl.sixtape.db
 
-import cl.sixtape.model.Movie
-import kotlinx.coroutines.Dispatchers
+import cl.sixtape.model.movie.Movie
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.sql.Transaction
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 
 object MovieTable: IntIdTable("movie") {
@@ -26,8 +23,6 @@ class MovieDAO(id: EntityID<Int>) : IntEntity(id) {
     var runtime by MovieTable.runtime
 }
 
-suspend fun <T> suspendTransaction(block: suspend Transaction.() -> T): T =
-    newSuspendedTransaction(Dispatchers.IO, statement = block)
 
 fun daoToModel(dao: MovieDAO): Movie = Movie(
     dao.title,

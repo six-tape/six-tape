@@ -1,4 +1,4 @@
-package cl.sixtape.model
+package cl.sixtape.model.movie
 
 import kotlinx.serialization.Serializable
 

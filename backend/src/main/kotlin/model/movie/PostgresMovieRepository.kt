@@ -1,4 +1,4 @@
-package cl.sixtape.model
+package cl.sixtape.model.movie
 
 import cl.sixtape.db.MovieDAO
 import cl.sixtape.db.MovieTable
@@ -21,9 +21,6 @@ class PostgresMovieRepository : MovieRepository {
     }
 
     override suspend fun addMovie(movie: Movie): Unit = suspendTransaction {
-        if (movieByTitle(movie.title) != null) {
-            throw IllegalStateException("Movie already exists.")
-        }
         MovieDAO.new {
             title = movie.title
             releaseYear = movie.releaseYear
