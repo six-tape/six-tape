@@ -1,22 +1,23 @@
+---
+import "../styles/global.css";
+import Header from "@components/Header.astro";
+---
+
 <!doctype html>
 <html lang="es">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Six Tape</title>
+        <meta name="description" content="Watchlist del grupo Six Tape."></meta>
+        <meta name="author" content="Vicente Olivares Gómez"/>
+        <meta name="robots" content="index, follow"/>
 	</head>
-	<body>
-		<slot />
+	<body class="m-0 px-4 w-full h-full bg-primary-bg text-primary-text">
+        <Header />
+        <main>
+		    <slot />
+        </main>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
