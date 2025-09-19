@@ -6,11 +6,10 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.bodyAsText
-import io.ktor.client.statement.content
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.Application
 import io.ktor.server.testing.*
+import java.util.UUID
 import kotlin.test.*
 
 class ApplicationTest {
@@ -38,6 +37,7 @@ class ApplicationTest {
             }
         }
         val movie = Movie(
+            UUID.randomUUID(),
             "Superman",
             2025,
             130,

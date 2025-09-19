@@ -1,24 +1,24 @@
 package cl.sixtape.db
 
-import cl.sixtape.model.Movie
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.IntIdTable
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.UUIDEntity
+import org.jetbrains.exposed.dao.UUIDEntityClass
+import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import java.util.UUID
 
 
-object MovieTable: IntIdTable("movie") {
+object MovieTable: UUIDTable("movie") {
     val title = varchar("title", 50)
     val releaseYear = integer("release_year")
     val overview = varchar("overview", 1000)
     val runtime = integer("runtime")
 }
 
-class MovieDAO(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<MovieDAO>(MovieTable)
+class MovieDAO(id: EntityID<UUID>) : UUIDEntity(id) {
+    companion object : UUIDEntityClass<MovieDAO>(MovieTable)
 
     var title by MovieTable.title
     var releaseYear by MovieTable.releaseYear
@@ -28,10 +28,3 @@ class MovieDAO(id: EntityID<Int>) : IntEntity(id) {
 
 suspend fun <T> suspendTransaction(block: suspend Transaction.() -> T): T =
     newSuspendedTransaction(Dispatchers.IO, statement = block)
-
-fun daoToModel(dao: MovieDAO): Movie = Movie(
-    dao.title,
-    dao.releaseYear,
-    dao.runtime,
-    dao.overview
-)

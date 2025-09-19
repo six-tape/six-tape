@@ -2,21 +2,25 @@ package cl.sixtape.model
 
 import cl.sixtape.db.MovieDAO
 import cl.sixtape.db.MovieTable
-import cl.sixtape.db.daoToModel
 import cl.sixtape.db.suspendTransaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
+import java.util.UUID
 
 class PostgresMovieRepository : MovieRepository {
     override suspend fun allMovies(): List<Movie> = suspendTransaction {
-        MovieDAO.all().map(::daoToModel)
+        MovieDAO.all().map { Movie.fromDAO(it)!! }
+    }
+
+    override suspend fun movieById(id: UUID): Movie? = suspendTransaction {
+        Movie.fromDAO(MovieDAO.findById(id))
     }
 
     override suspend fun movieByTitle(title: String): Movie? = suspendTransaction {
         MovieDAO
             .find { (MovieTable.title eq title) }
             .limit(1)
-            .map(::daoToModel)
+            .map { Movie.fromDAO(it) }
             .firstOrNull()
     }
 
