@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import MovieListItem from '@components/MovieListItem.astro';
+import MovieList from "../components/MovieList.tsx";
+import Plus from "@assets/icons/plus.svg";
 
 const movie_list = [
     {
@@ -17,12 +18,10 @@ const movie_list = [
 
 <Layout>
 	<h1>Películas por ver:</h1>
-	<ul class="px-4 flex flex-col gap-4">
-        {movie_list.map((movie) => (
-		    <MovieListItem title={movie.title}
-                           summary={movie.summary}
-                           user={movie.user}
-            />
-        ))}
-	</ul>
+	<MovieList client:load>
+        <Plus/>
+    </MovieList>
 </Layout>
+
+<script>
+</script>
