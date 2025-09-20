@@ -28,7 +28,7 @@ class PostgresMovieRepository : MovieRepository {
         if (movieByTitle(movie.title) != null) {
             throw IllegalStateException("Movie already exists.")
         }
-        MovieDAO.new {
+        MovieDAO.new(id=movie.id) {
             title = movie.title
             releaseYear = movie.releaseYear
             runtime = movie.runtime

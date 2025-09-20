@@ -17,6 +17,20 @@ fun Application.configureSerialization(repository: MovieRepository) {
     }
     routing {
         route("/movies") {
+            post {
+                try {
+                    val movie = call.receive<Movie>()
+                    repository.addMovie(movie)
+                    call.respond(HttpStatusCode.NoContent)
+                } catch (e: IllegalStateException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                } catch (e: JsonConvertException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.InternalServerError)
+                }
+            }
+
             get {
                 val movies = repository.allMovies()
                 call.respond(movies)
@@ -34,20 +48,6 @@ fun Application.configureSerialization(repository: MovieRepository) {
                     return@get
                 }
                 call.respond(movie)
-            }
-
-            post {
-                try {
-                    val movie = call.receive<Movie>()
-                    repository.addMovie(movie)
-                    call.respond(HttpStatusCode.NoContent)
-                } catch (e: IllegalStateException) {
-                    call.respond(HttpStatusCode.BadRequest)
-                } catch (e: JsonConvertException) {
-                    call.respond(HttpStatusCode.BadRequest)
-                } catch (e: Exception) {
-                    call.respond(HttpStatusCode.InternalServerError)
-                }
             }
 
             delete("/{movieTitle}") {
