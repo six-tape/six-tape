@@ -11,6 +11,6 @@ fun Application.module() {
     val repository = PostgresMovieRepository()
 
     configureSerialization(repository)
-    configureDatabases()
+    configureDatabases(environment.config)
     configureRouting()
 }

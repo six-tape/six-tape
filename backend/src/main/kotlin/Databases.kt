@@ -1,12 +1,19 @@
 package cl.sixtape
 
 import io.ktor.server.application.*
+import io.ktor.server.config.ApplicationConfig
 import org.jetbrains.exposed.sql.*
 
-fun Application.configureDatabases() {
+fun Application.configureDatabases(config: ApplicationConfig) {
+    val url = config.property("db.jdbcURL").getString()
+    val driver = config.property("db.driver").getString()
+    val user = config.property("db.user").getString()
+    val password = config.property("db.password").getString()
+
     Database.connect(
-        "jdbc:postgresql://localhost:5432/postgres",
-        user = "postgres",
-        password = "Nintendo14ds!"
+        url,
+        driver = driver,
+        user = user,
+        password = password
     )
 }

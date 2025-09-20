@@ -11,6 +11,10 @@ application {
     mainClass = "io.ktor.server.netty.EngineMain"
 }
 
+repositories{
+    mavenCentral()
+}
+
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.serialization.kotlinx.json)
