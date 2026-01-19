@@ -12,18 +12,16 @@ import java.util.UUID
 
 object MovieTable: UUIDTable("movie") {
     val title = varchar("title", 50)
-    val releaseYear = integer("release_year")
-    val overview = varchar("overview", 1000)
     val runtime = integer("runtime")
+    val watched = bool("watched")
 }
 
 class MovieDAO(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<MovieDAO>(MovieTable)
 
     var title by MovieTable.title
-    var releaseYear by MovieTable.releaseYear
-    var overview by MovieTable.overview
     var runtime by MovieTable.runtime
+    var watched by MovieTable.watched
 }
 
 suspend fun <T> suspendTransaction(block: suspend Transaction.() -> T): T =

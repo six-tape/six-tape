@@ -9,19 +9,17 @@ import java.util.UUID
  *  A movie.
  *
  *  @property id UUID to identify the movie.
- *  @property title the title of the movie.
- *  @property releaseYear the release year of the movie.
- *  @property runtime the runtime of the movie in minutes.
- *  @property overview the overview of the movie.
+ *  @property title The title of the movie.
+ *  @property runtime The runtime of the movie in minutes.
+ *  @property watched Whether the movie has been watched or not.
  */
 @Serializable
 data class Movie(
     @Serializable(with = UUIDSerializer::class)
     val id: UUID,
     val title: String,
-    val releaseYear: Int,
     val runtime: Int,
-    val overview: String = "",
+    val watched: Boolean,
 ) {
     companion object {
         fun fromDAO (movieDAO: MovieDAO?): Movie? {
@@ -30,11 +28,10 @@ data class Movie(
             return Movie(
                 movieDAO.id.value,
                 movieDAO.title,
-                movieDAO.releaseYear,
                 movieDAO.runtime,
-                movieDAO.overview
+                movieDAO.watched
             )
         }
     }
-    override fun toString(): String = "$title ($releaseYear)"
+    override fun toString(): String = title
 }
