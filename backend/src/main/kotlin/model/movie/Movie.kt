@@ -1,12 +1,12 @@
 package cl.sixtape.model.movie
 
 import cl.sixtape.db.MovieDAO
-import cl.sixtape.serializers.UUIDSerializer
+import cl.sixtape.model.serializers.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
 /**
- *  A movie.
+ *  A movie DTO.
  *
  *  @property id UUID to identify the movie.
  *  @property title The title of the movie.
@@ -21,17 +21,5 @@ data class Movie(
     val runtime: Int,
     val watched: Boolean,
 ) {
-    companion object {
-        fun fromDAO (movieDAO: MovieDAO?): Movie? {
-            movieDAO ?: return null
-
-            return Movie(
-                movieDAO.id.value,
-                movieDAO.title,
-                movieDAO.runtime,
-                movieDAO.watched
-            )
-        }
-    }
     override fun toString(): String = title
 }

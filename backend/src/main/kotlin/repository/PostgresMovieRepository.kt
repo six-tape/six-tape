@@ -5,6 +5,7 @@ import cl.sixtape.db.MovieTable
 import cl.sixtape.db.suspendTransaction
 import cl.sixtape.model.movie.Movie
 import cl.sixtape.model.movie.MovieCreation
+import cl.sixtape.model.movie.MovieUpdate
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import java.util.UUID
@@ -34,15 +35,19 @@ class PostgresMovieRepository : MovieRepository {
         newMovieDAO.toMovie()
     }
 
-    suspend fun updateMovie(movie: Movie): Movie = suspendTransaction {
-
+    override suspend fun updateMovie(movie: MovieUpdate): Movie? = suspendTransaction {
+        val updatedMovieDao = MovieDAO.findByIdAndUpdate(movie.id) {
+            movie.title?.run { it.title = this }
+            movie.runtime?.run { it.runtime = this }
+            movie.watched?.run { it.watched = this }
+        }
+        updatedMovieDao?.toMovie()
     }
 
-    override suspend fun deleteMovie(title: String): Boolean = suspendTransaction {
-        val rowsDeleted = MovieTable.deleteWhere {
-            MovieTable.title eq title
-        }
-        rowsDeleted == 1
+    override suspend fun deleteMovie(id: UUID): Boolean = suspendTransaction {
+        val MovieToDelete = MovieDAO.findById(id) ?: return@suspendTransaction false
+        MovieToDelete.delete()
+        true
     }
 
     private fun MovieDAO.toMovie() = Movie(
