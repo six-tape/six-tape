@@ -1,4 +1,4 @@
-package cl.sixtape.model
+package cl.sixtape.model.movie
 
 import cl.sixtape.db.MovieDAO
 import cl.sixtape.serializers.UUIDSerializer

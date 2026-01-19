@@ -1,6 +1,6 @@
 package cl.sixtape
 
-import cl.sixtape.model.PostgresMovieRepository
+import cl.sixtape.model.movie.PostgresMovieRepository
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

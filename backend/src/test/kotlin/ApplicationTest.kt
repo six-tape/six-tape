@@ -1,7 +1,7 @@
 package cl.sixtape
 
-import cl.sixtape.model.Movie
-import cl.sixtape.model.PostgresMovieRepository
+import cl.sixtape.model.movie.Movie
+import cl.sixtape.model.movie.PostgresMovieRepository
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*

@@ -1,4 +1,4 @@
-package cl.sixtape.model
+package cl.sixtape.model.user
 
 data class User (
     val username: String,
