@@ -5,14 +5,22 @@ import cl.sixtape.db.MovieTable
 import cl.sixtape.db.suspendTransaction
 import cl.sixtape.model.movie.Movie
 import cl.sixtape.model.movie.MovieCreation
+import cl.sixtape.model.movie.MovieFilters
 import cl.sixtape.model.movie.MovieUpdate
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.and
 import java.util.UUID
 
 class PostgresMovieRepository : MovieRepository {
-    override suspend fun findAllMovies(): List<Movie> = suspendTransaction {
-        MovieDAO.all().map { it.toMovie() }
+    override suspend fun findAllMovies(filters: MovieFilters): List<Movie> = suspendTransaction {
+        MovieDAO.find {
+            val conditions = mutableListOf<Op<Boolean>>()
+
+            filters.watched?.let { conditions.add(MovieTable.watched eq it)}
+            filters.maxRuntime?.let { conditions.add(MovieTable.runtime lessEq it)}
+
+            conditions.reduce { prevCondition, currentCondition -> prevCondition and currentCondition }
+        }.map { it.toMovie() }
     }
 
     override suspend fun findMovieById(id: UUID): Movie? = suspendTransaction {
@@ -45,8 +53,8 @@ class PostgresMovieRepository : MovieRepository {
     }
 
     override suspend fun deleteMovie(id: UUID): Boolean = suspendTransaction {
-        val MovieToDelete = MovieDAO.findById(id) ?: return@suspendTransaction false
-        MovieToDelete.delete()
+        val movieToDelete = MovieDAO.findById(id) ?: return@suspendTransaction false
+        movieToDelete.delete()
         true
     }
 
