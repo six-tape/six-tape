@@ -9,7 +9,7 @@ import java.util.UUID
 interface MovieRepository {
     suspend fun findAllMovies(filters: MovieFilters): List<Movie>
     suspend fun findMovieById(id: UUID): Movie?
-    suspend fun findMovieByTitle(title: String): Movie?
+    suspend fun findMovieByTitleYear(title: String, releaseYear: Int): Movie?
     suspend fun addMovie(movie: MovieCreation): Movie
     suspend fun updateMovie(movie: MovieUpdate): Movie?
     suspend fun deleteMovie(id: UUID): Boolean
