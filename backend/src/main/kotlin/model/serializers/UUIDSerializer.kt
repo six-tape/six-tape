@@ -1,4 +1,4 @@
-package cl.sixtape.serializers
+package cl.sixtape.model.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
