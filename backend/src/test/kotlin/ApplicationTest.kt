@@ -1,7 +1,9 @@
 package cl.sixtape
 
 import cl.sixtape.model.movie.Movie
-import cl.sixtape.model.movie.PostgresMovieRepository
+import cl.sixtape.repository.PostgresMovieRepository
+import cl.sixtape.routing.configureRouting
+import cl.sixtape.routes.configureSerialization
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -39,9 +41,8 @@ class ApplicationTest {
         val movie = Movie(
             UUID.randomUUID(),
             "Superman",
-            2025,
             130,
-            "Superman, a journalist in Metropolis, embarks on a journey to reconcile his Kryptonian heritage with his human upbringing as Clark Kent."
+            false
         )
         val responsePost = client.post("/movies") {
             header(HttpHeaders.ContentType, ContentType.Application.Json)

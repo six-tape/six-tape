@@ -1,6 +1,7 @@
 package cl.sixtape
 
-import cl.sixtape.model.movie.PostgresMovieRepository
+import cl.sixtape.repository.PostgresMovieRepository
+import cl.sixtape.routing.configureRouting
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -10,7 +11,6 @@ fun main(args: Array<String>) {
 fun Application.module() {
     val repository = PostgresMovieRepository()
 
-    configureSerialization(repository)
     configureDatabases(environment.config)
-    configureRouting()
+    configureRouting(repository)
 }
