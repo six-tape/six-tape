@@ -14,6 +14,8 @@ object MovieTable: UUIDTable("movie") {
     val title = varchar("title", 50)
     val runtime = integer("runtime")
     val watched = bool("watched")
+    val releaseYear = integer("releaseYear")
+    val nameYearIndex = uniqueIndex("name_year", title, releaseYear)
 }
 
 class MovieDAO(id: EntityID<UUID>) : UUIDEntity(id) {
@@ -22,6 +24,7 @@ class MovieDAO(id: EntityID<UUID>) : UUIDEntity(id) {
     var title by MovieTable.title
     var runtime by MovieTable.runtime
     var watched by MovieTable.watched
+    var releaseYear by MovieTable.releaseYear
 }
 
 suspend fun <T> suspendTransaction(block: suspend Transaction.() -> T): T =

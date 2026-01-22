@@ -12,6 +12,7 @@ import java.util.UUID
  *  @property title The title of the movie.
  *  @property runtime The runtime of the movie in minutes.
  *  @property watched Whether the movie has been watched or not.
+ *  @property releaseYear The release year of the movie.
  */
 @Serializable
 data class Movie(
@@ -20,6 +21,7 @@ data class Movie(
     val title: String,
     val runtime: Int,
     val watched: Boolean,
+    val releaseYear: Int
 ) {
     override fun toString(): String = title
 }

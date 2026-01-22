@@ -14,6 +14,7 @@ import java.util.UUID
  * @property title The updated title of the movie, or null if no update is specified.
  * @property runtime The updated runtime of the movie in minutes, or null if no update is specified.
  * @property watched The updated watched status of the movie, or null if no update is specified.
+ * @property releaseYear The updated release year of the movie, or null if no update is specified.
  */
 @Serializable
 data class MovieUpdate(
@@ -21,5 +22,6 @@ data class MovieUpdate(
     val id: UUID,
     val title: String? = null,
     val runtime: Int? = null,
-    val watched: Boolean? = null
+    val watched: Boolean? = null,
+    val releaseYear: Int? = null
 )
